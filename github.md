@@ -196,6 +196,28 @@ Hi ユーザ名! You've successfully authenticated, but GitHub does not provide 
 
 ソースコードの編集等が終わったら`VSCode`を終了する。作業再開時はフォルダを開けばよい。
 
+## コミット用のシェルスクリプトを作成する
+
+共有で使用しているPCのリポジトリを編集してコミットする場合、そのままでは誰がコミットしたか分からなくなるため、次のようなスクリプトをホームディレクトリに作成してコミットする。
+
+```shell
+$ cd
+$ emacs commit_c15999.sh # 自分の学番など。
+```
+
+内容は次の通り。`github`のユーザ名とメールアドレス（`github`から得られるダミーのアドレス）を指定する。
+
+```text
+#!/bin/bash
+git commit --author='ユーザ名 <XXXX@YYYY.com>'
+```
+
+実行権限をつける。
+
+```shell
+$ chmod u+x ~/commit_c15999.sh
+```
+
 ---
 
 [README](./README.md)
