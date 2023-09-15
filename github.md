@@ -127,6 +127,8 @@ $ less .gitconfig
         name = コミット時に登録される名前
 ```
 
+`less`コマンドはアルファベットの`Q`で終了できる。
+
 ### 公開鍵をGitHubに登録する
 
 あらかじめ[GitHub](https://github.com/)にログインしておき、[SSH and GPG keys](https://github.com/settings/ssh)を開いて`New SSH key`を押す。
