@@ -198,6 +198,22 @@ Hi ユーザ名! You've successfully authenticated, but GitHub does not provide 
 
 ソースコードの編集等が終わったら`VSCode`を終了する。作業再開時はフォルダを開けばよい。
 
+## コミットの追加設定（Linux）
+
+以下のコマンドでコミットメッセージ編集用エディタを`emacs`にすることができる。
+エディタは自分の使いやすいものを選択して良いが、`GUI`エディタの場合は`ssh`で端末からログインしている場合使用できない。
+
+```shell
+$ git config --global core.editor "emacs -nw" 
+```
+
+`emacs`で編集する場合、`Ctrl`キーを押して`X`キーを押し、`X`キーだけを離してから`S`キーを押すとメッセージを保存できる。
+このような操作を`Ctrl+X Ctrl+S`と表記する。
+
+続けて`Ctrl+X Ctrl+C`でエディタを終了できる。
+
+共用の全てのロボットはエディタを`emacs`にしている。
+
 ## コミット用のシェルスクリプトを作成する（オプション・Linux用）
 
 共有で使用しているPCのリポジトリを編集してコミットする場合、そのままでは誰がコミットしたか分からなくなるため、次のようなスクリプトをホームディレクトリに作成してコミットする。
@@ -218,6 +234,92 @@ git commit --author='ユーザ名 <XXXX@YYYY.com>'
 
 ```shell
 $ chmod u+x ~/commit_c15999.sh
+```
+
+## その他の操作
+
+ローカルリポジトリの状態を確認する。
+
+```shell
+git status
+# 実行結果
+# この例ではファイル変更があったことを示している。
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+```shell
+git log
+# 実行結果
+Author: Sample <XXXXXXXXXXX@users.noreply.github.com>
+Date:   Wed Aug 28 15:37:58 2024 +0900
+
+    add: comment
+# 次のようにすると最後のコミットログだけを見ることができる。
+# git log -n 1
+```
+
+ブランチの作成。
+
+```shell
+git checkout -b ブランチ名
+```
+
+作成したブランチをプッシュする。
+
+```shell
+git push -u origin ブランチ名
+```
+
+既存のリモートブランチのチェックアウト
+
+```shell
+git fetch
+git checkout -b ブランチ名 origin/ブランチ名
+git pull
+```
+
+ブランチ間の移動。
+
+```shell
+git checkout ブランチ名
+```
+
+ブランチ一覧を見る。
+
+```shell
+git branch
+# 実行結果
+  devel
+* main # * があるのが現在作業中のブランチ
+```
+
+リモートも含めてブランチ一覧を見る。
+
+```shell
+git branch --all
+  devel
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/devel
+  remotes/origin/main
+  remotes/origin/stitch_map # ローカルにはないがリモートにはあるブランチ
+```
+
+現在のローカルの変更を全て破棄する。
+
+```shell
+# コミットしていない変更を破棄する。
+git reset --hard
+# ローカルのコミットも破棄して、リモートに完全一致させる。
+git reset --hard origin/ブランチ名
 ```
 
 ---
